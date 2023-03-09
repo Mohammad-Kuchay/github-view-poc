@@ -88,6 +88,12 @@ const Repository = () => {
                       {repository.updated_at}
                     </span>
                   </p>
+                  <p>
+                    Language{" "}
+                    <span className="font-semibold">
+                      {repository.language}
+                    </span>
+                  </p>
                 </div>
               </div>
             </div>
