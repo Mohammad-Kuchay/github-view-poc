@@ -24,7 +24,6 @@ const Repositories = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [languageFilter, setLanguageFilter] = useState<string>("");
   const [username, setUsername] = useState<string>("");
-  const [sortColumn, setSortColumn] = useState<string>("best-match");
   const [sortOrder, setSortOrder] = useState<string>("asc");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [perPage, setPerPage] = useState<number>(10);
@@ -37,21 +36,12 @@ const Repositories = () => {
         username,
         currentPage,
         perPage,
-        sortColumn,
         sortOrder
       );
       setRepositories(repos);
     };
     fetchRepositories();
-  }, [
-    searchTerm,
-    languageFilter,
-    username,
-    sortColumn,
-    sortOrder,
-    currentPage,
-    perPage,
-  ]);
+  }, [searchTerm, languageFilter, username, sortOrder, currentPage, perPage]);
 
   return (
     <div className="container">
@@ -63,7 +53,7 @@ const Repositories = () => {
       <div className="row">
         <div className="col-12">
           <div className="form-group">
-            <label htmlFor="searchTerm">Search Term</label>
+            <label htmlFor="searchTerm">Repository Name</label>
             <input
               type="text"
               className="form-control"
@@ -99,24 +89,6 @@ const Repositories = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
-          </div>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-12">
-          <div className="form-group">
-            <label htmlFor="sortColumn">Sort Column</label>
-            <select
-              className="form-control"
-              id="sortColumn"
-              value={sortColumn}
-              onChange={(e) => setSortColumn(e.target.value)}
-            >
-              <option value="best-match">Best Match</option>
-              <option value="stars">Stars</option>
-              <option value="forks">Forks</option>
-              <option value="updated">Updated</option>
-            </select>
           </div>
         </div>
       </div>
