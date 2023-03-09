@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { mockGetRepository } from "../api/github";
+import { getRepository, mockGetRepository } from "../api/github";
 
 interface IRepository {
   name: string;
@@ -29,7 +29,7 @@ const Repository = () => {
     const fetchRepository = async () => {
       setIsLoading(true);
       try {
-        const repository = await mockGetRepository(owner, name);
+        const repository = await getRepository(owner, name);
         setRepository(repository);
         setIsLoading(false);
       } catch (error: any) {
@@ -46,7 +46,7 @@ const Repository = () => {
 
   return (
     <>
-      {error && <div>oh oh. Looks like this repository doesn't exist</div>}
+      {error && <div className="flex justify-center">oh oh. Looks like this repository doesn't exist</div>}
       {repository && (
         <div className="max-w-7xl mx-auto mt-12">
           <button
