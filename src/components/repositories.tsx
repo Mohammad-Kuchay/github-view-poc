@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { mockSearchRepositories, searchRepositories } from "../api/github";
+import { searchRepositories } from "../api/github";
 import useDebounce from "../utils/useDebounce";
 
 interface IRepository {
