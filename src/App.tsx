@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Repositories from "./components/repositories";
-import Repository from "./components/repository";
+import Repositories from "./views/repositories";
+import Repository from "./views/repository";
 
 function App() {
   return (

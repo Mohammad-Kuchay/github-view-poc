@@ -33,9 +33,8 @@ const Repositories = () => {
   const debouncerepoName = useDebounce<string>(repoName, 500);
   const debounceLangFilter = useDebounce<string>(languageFilter, 500);
   const debounceUser = useDebounce<string>(username, 500);
-  const debounceCurrentPage = useDebounce<number>(currentPage, 1000)
-  const debouncePerPage = useDebounce<number>(perPage, 1000)
-
+  const debounceCurrentPage = useDebounce<number>(currentPage, 1000);
+  const debouncePerPage = useDebounce<number>(perPage, 1000);
 
   useEffect(() => {
     const fetchRepositories = async () => {
@@ -168,62 +167,64 @@ const Repositories = () => {
     );
   };
 
-
   return (
     <div className="max-w-7xl mx-auto py-12">
       <div className="flex items-center justify-between gap-5">
         <h1 className="text-3xl font-bold">GitHub View</h1>
-        <div className="flex gap-5">
-          <div className="flex flex-col">
-            <label htmlFor="repoName" className="font-medium mb-1">
-              Search for repositry
-            </label>
-            <input
-              type="text"
-              className="border border-gray-400 px-2 py-1"
-              id="repoName"
-              value={repoName}
-              onChange={(e) => setRepoName(e.target.value)}
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="username" className="font-medium mb-1">
-              Filter by username
-            </label>
-            <input
-              type="text"
-              className="border border-gray-400 px-2 py-1"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="languageFilter" className="font-medium mb-1">
-              Filter by language
-            </label>
-            <input
-              type="text"
-              className="border border-gray-400 px-2 py-1"
-              id="languageFilter"
-              value={languageFilter}
-              onChange={(e) => setLanguageFilter(e.target.value)}
-            />
+        <div>
+          <p className="Text-xs text-gary-400">Start typing to search</p>
+          <div className="flex gap-5">
+            <div className="flex flex-col">
+              <label htmlFor="repoName" className="font-medium mb-1">
+                Search for repositry
+              </label>
+              <input
+                type="text"
+                className="border border-gray-400 px-2 py-1"
+                id="repoName"
+                value={repoName}
+                onChange={(e) => setRepoName(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="username" className="font-medium mb-1">
+                Filter by username
+              </label>
+              <input
+                type="text"
+                className="border border-gray-400 px-2 py-1"
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="languageFilter" className="font-medium mb-1">
+                Filter by language
+              </label>
+              <input
+                type="text"
+                className="border border-gray-400 px-2 py-1"
+                id="languageFilter"
+                value={languageFilter}
+                onChange={(e) => setLanguageFilter(e.target.value)}
+              />
+            </div>
           </div>
         </div>
       </div>
       <div className="border-t border-gray-300 pt-8 mt-8">
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : isDirty ? (
-        repositories.length > 0 ? (
-          renderTable()
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : isDirty ? (
+          repositories.length > 0 ? (
+            renderTable()
+          ) : (
+            <p>No results</p>
+          )
         ) : (
-          <p>No results</p>
-        )
-      ) : (
-        <p>Search for repositories</p>
-      )}
+          <p>Search for repositories</p>
+        )}
       </div>
     </div>
   );
