@@ -172,7 +172,7 @@ const Repositories = () => {
       <div className="flex items-center justify-between gap-5">
         <h1 className="text-3xl font-bold">GitHub View</h1>
         <div>
-          <p className="Text-xs text-gary-400">Start typing to search</p>
+          <p className="text-xs text-gary-400">Start typing to search</p>
           <div className="flex gap-5">
             <div className="flex flex-col">
               <label htmlFor="repoName" className="font-medium mb-1">
