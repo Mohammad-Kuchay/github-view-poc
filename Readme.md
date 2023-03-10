@@ -14,19 +14,18 @@ You will need to have node installed on your machine. You can download it from [
 
 Clone the repository to your local machine.
 
-```
+``` bash
 git clone $repo_url
-```
 ```
 
 Install the dependencies.
 
-```
+``` bash
 npm install
 ```
 
 Start the server.
 
-```
+``` bash
 npm start
 ```
