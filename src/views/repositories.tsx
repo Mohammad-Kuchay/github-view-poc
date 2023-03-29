@@ -67,8 +67,8 @@ const Repositories = () => {
     debounceLangFilter,
     debounceUser,
     sortOrder,
-    currentPage,
-    perPage,
+    debounceCurrentPage,
+    debouncePerPage,
   ]);
 
   const renderTable = () => {
