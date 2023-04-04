@@ -1,22 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getRepository } from "../api/github";
-
-interface IRepository {
-  name: string;
-  description: string;
-  language: string;
-  created_at: string;
-  updated_at: string;
-  html_url: string;
-  stargazers_count: number;
-  forks_count: number;
-  watchers_count: number;
-  owner: {
-    login: string;
-    avatar_url: string;
-  };
-}
+import { IRepository } from "../interfaces/repository";
+import Loading from "../components/Loading";
 
 const Repository = () => {
   const { owner, name } = useParams();
@@ -41,7 +27,7 @@ const Repository = () => {
   }, [owner, name]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading/>;
   }
 
   return (

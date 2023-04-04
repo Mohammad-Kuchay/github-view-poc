@@ -2,26 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { searchRepositories } from "../api/github";
 import useDebounce from "../utils/useDebounce";
+import RepositoryCard from "../components/RepositoryCard";
+import { IRepository } from "../interfaces/repository";
+import Loading from "../components/Loading";
 
-interface IRepository {
-  id: number;
-  name: string;
-  description: string;
-  created_at: string;
-  updated_at: string;
-  html_url: string;
-  language: string;
-  stargazers_count: number;
-  forks_count: number;
-  watchers_count: number;
-  owner: {
-    login: string;
-    avatar_url: string;
-  };
-}
+
 
 const Repositories = () => {
   const [repositories, setRepositories] = useState<IRepository[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [repoName, setRepoName] = useState<string>("");
   const [languageFilter, setLanguageFilter] = useState<string>("");
   const [username, setUsername] = useState<string>("");
@@ -48,7 +37,8 @@ const Repositories = () => {
           debouncePerPage,
           sortOrder
         );
-        setRepositories(repos);
+        setRepositories(repos.items);
+        setTotalCount(repos.total_count);
         setIsLoading(false);
       } catch (e) {
         setIsLoading(false);
@@ -71,7 +61,7 @@ const Repositories = () => {
     debouncePerPage,
   ]);
 
-  const renderTable = () => {
+  const renderGrid = () => {
     return (
       <div>
         <div className="flex items-center justify-between">
@@ -117,51 +107,30 @@ const Repositories = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-12 mt-8">
-          <table className="table-auto w-full">
-            <thead>
-              <tr>
-                <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">Description</th>
-                <th className="px-4 py-2">Created</th>
-                <th className="px-4 py-2">Updated</th>
-                <th className="px-4 py-2">Language</th>
-                <th className="px-4 py-2">Stars</th>
-                <th className="px-4 py-2">Forks</th>
-                <th className="px-4 py-2">Watchers</th>
-                <th className="px-4 py-2">Owner</th>
-              </tr>
-            </thead>
-            <tbody>
-              {repositories?.map((repo) => (
-                <tr key={repo.id}>
-                  <td className="border px-4 py-2">
-                    <Link
-                      className="underline text-indigo-500 "
-                      to={`/${repo.owner.login}/${repo.name}`}
-                    >
-                      {repo.name}
-                    </Link>
-                  </td>
-                  <td className="border px-4 py-2">{repo.description}</td>
-                  <td className="border px-4 py-2">{repo.created_at}</td>
-                  <td className="border px-4 py-2">{repo.updated_at}</td>
-                  <td className="border px-4 py-2">{repo.language}</td>
-                  <td className="border px-4 py-2">{repo.stargazers_count}</td>
-                  <td className="border px-4 py-2">{repo.forks_count}</td>
-                  <td className="border px-4 py-2">{repo.watchers_count}</td>
-                  <td className="border px-4 py-2">
-                    <img
-                      title={repo.owner.login}
-                      src={repo.owner.avatar_url}
-                      alt={repo.owner.login}
-                      className="w-8 h-8 rounded-full"
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="mt-8  grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+          {repositories.map((repo) => (
+            <RepositoryCard key={repo.id} repository={repo} />
+          ))}
+        </div>
+        <div className="flex items-center justify-center mt-10">
+          <div className="flex items-center gap-3">
+            {currentPage > 1 ? (
+              <button
+                className="px-4 py-2 rounded bg-blue-100 text-blue-500 hover:bg-blue-200"
+                onClick={() => setCurrentPage((prev) => prev - 1)}
+              >
+                Prev
+              </button>
+            ) : null}
+            {totalCount > 0 ? (
+            <button
+              className="px-4 py-2 rounded bg-blue-100 text-blue-500 hover:bg-blue-200"
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+            >
+              Next
+            </button>
+            ) : null}
+          </div>
         </div>
       </div>
     );
@@ -215,10 +184,10 @@ const Repositories = () => {
       </div>
       <div className="border-t border-gray-300 pt-8 mt-8">
         {isLoading ? (
-          <p>Loading...</p>
+          <Loading/>
         ) : isDirty ? (
           repositories.length > 0 ? (
-            renderTable()
+            renderGrid()
           ) : (
             <p>No results</p>
           )
