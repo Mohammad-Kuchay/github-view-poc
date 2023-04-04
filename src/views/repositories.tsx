@@ -122,7 +122,7 @@ const Repositories = () => {
                 Prev
               </button>
             ) : null}
-            {totalCount > 0 ? (
+            { totalCount > 0 && currentPage * perPage < totalCount ? (
             <button
               className="px-4 py-2 rounded bg-blue-100 text-blue-500 hover:bg-blue-200"
               onClick={() => setCurrentPage((prev) => prev + 1)}
