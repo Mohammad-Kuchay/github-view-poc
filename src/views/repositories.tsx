@@ -22,7 +22,6 @@ const Repositories = () => {
   const debouncerepoName = useDebounce<string>(repoName, 500);
   const debounceLangFilter = useDebounce<string>(languageFilter, 500);
   const debounceUser = useDebounce<string>(username, 500);
-  const debounceCurrentPage = useDebounce<number>(currentPage, 1000);
   const debouncePerPage = useDebounce<number>(perPage, 1000);
 
   useEffect(() => {
@@ -33,7 +32,7 @@ const Repositories = () => {
           debouncerepoName,
           debounceLangFilter,
           debounceUser,
-          debounceCurrentPage,
+          currentPage,
           debouncePerPage,
           sortOrder
         );
@@ -57,7 +56,7 @@ const Repositories = () => {
     debounceLangFilter,
     debounceUser,
     sortOrder,
-    debounceCurrentPage,
+    currentPage,
     debouncePerPage,
   ]);
 
@@ -81,7 +80,7 @@ const Repositories = () => {
                 <option value="desc">Descending</option>
               </select>
             </div>
-            <div className="flex flex-col">
+            {/* <div className="flex flex-col">
               <label htmlFor="currentPage" className="font-medium mb-1">
                 Current Page
               </label>
@@ -92,7 +91,7 @@ const Repositories = () => {
                 value={currentPage}
                 onChange={(e) => setCurrentPage(parseInt(e.target.value))}
               />
-            </div>
+            </div> */}
             <div className="flex flex-col">
               <label htmlFor="perPage" className="font-medium mb-1">
                 Per Page
