@@ -49,7 +49,7 @@ const Repository = () => {
               Go Back
             </button>
             <a
-              className="block px-3 py-2 flex gap-1 rounded-md bg-black text-white hover:bg-gray-900 transition"
+              className="px-3 py-2 flex gap-1 rounded-md bg-black text-white hover:bg-gray-900 transition"
               href={repository.html_url}
               target="_blank"
             >
