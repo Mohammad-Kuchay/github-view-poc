@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { getRepository } from "../api/github";
 import { IRepository } from "../interfaces/repository";
 import Loading from "../components/Loading";
+import { NotFoundRepository } from "../components/NotFound";
 
 const Repository = () => {
   const { owner, name } = useParams();
@@ -33,9 +34,10 @@ const Repository = () => {
   return (
     <>
       {error && (
-        <div className="flex justify-center">
-          oh oh. Looks like this repository doesn't exist
-        </div>
+        // <div className="flex justify-center">
+        //   oh oh. Looks like this repository doesn't exist
+        // </div>
+        <NotFoundRepository message={"No Such Repository"}/>
       )}
       {repository && (
         <div className="max-w-7xl mx-auto mt-12">
